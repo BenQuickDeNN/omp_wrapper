@@ -7,7 +7,7 @@ using namespace omp_wrapper;
 const size_t numTasks = 16;
 int main()
 {
-    OMPTaskQueue q;
+    OMPQueue<NUFFTTask> q;
     vector<NUFFTTask> _array(numTasks);
 
     // 初始化任务数组
