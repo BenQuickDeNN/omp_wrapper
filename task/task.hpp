@@ -72,9 +72,9 @@ namespace omp_wrapper
                  const float *ky, const float *kz) noexcept
         {
             this->id = id;
-            task_coord = {coord_x, coord_y, coord_z};
-            gird_starts = {start_x, start_y, start_z};
-            gird_ends = {end_x, end_y, end_z};
+            task_coord.set(coord_x, coord_y, coord_z);
+            gird_starts.set(start_x, start_y, start_z);
+            gird_ends.set(end_x, end_y, end_z);
 
             setGrayCode(task_coord);
 

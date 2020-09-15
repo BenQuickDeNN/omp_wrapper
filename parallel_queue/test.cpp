@@ -4,7 +4,7 @@
 #include "parallel_queue.hpp"
 using namespace std;
 using namespace omp_wrapper;
-const size_t numTasks = 16;
+const size_t numTasks = 100;
 int main()
 {
     OMPQueue<NUFFTTask> q;
@@ -17,8 +17,19 @@ int main()
     // 并行插入任务队列
     #pragma omp parallel for num_threads(4)
     for (size_t i = 0; i < numTasks; ++i)
+    {
         q.push(_array[i]);
-    
+        if (q.top().priority() % 2 == 0)
+            q.pop();
+    }
+
+    /*
+    #pragma omp parallel for num_threads(4)
+    for (size_t i = 0; i < 90; ++i)
+        q.pop();
+    */
+
+
     // 打印任务的优先级
     while (!q.empty())
     {

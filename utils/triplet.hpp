@@ -17,6 +17,12 @@ namespace omp_wrapper
             y = arr[1];
             z = arr[2];
         }
+        void set(const int & x, const int & y, const int & z)
+        {
+            this->x = x;
+            this->y = y;
+            this->z = z;
+        }
     };
     struct Coordinate3D : Triplet
     {
