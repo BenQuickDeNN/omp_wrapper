@@ -28,20 +28,34 @@ namespace omp_wrapper
         void pop() noexcept
         {
             omp_set_lock(&lock);
-            _queue.pop();
+            if (!_queue.empty())
+                _queue.pop();
             omp_unset_lock(&lock);
         }
-        const type &top() const noexcept
+        type * top() noexcept
         {
-            return _queue.top();
+            type * ret = nullptr;
+            omp_set_lock(&lock);
+            if (!_queue.empty())
+                ret = &(_queue.top());
+            omp_unset_lock(&lock);
+            return ret;
         }
-        size_t size() const noexcept
+        size_t size() noexcept
         {
-            return _queue.size();
+            size_t ret = 0;
+            omp_set_lock(&lock);
+            ret = _queue.size();
+            omp_unset_lock(&lock);
+            return ret;
         }
-        bool empty() const noexcept
+        bool empty() noexcept
         {
-            return _queue.empty();
+            bool ret = true;
+            omp_set_lock(&lock);
+            ret = _queue.empty();
+            omp_unset_lock(&lock);
+            return ret;
         }
 
     private:
@@ -71,20 +85,34 @@ namespace omp_wrapper
         void pop() noexcept
         {
             omp_set_lock(&lock);
-            _queue.pop();
+            if (!_queue.empty())
+                _queue.pop();
             omp_unset_lock(&lock);
         }
-        const NUFFTTask &top() const noexcept
+        NUFFTTask top() noexcept
         {
-            return _queue.top();
+            NUFFTTask ret;
+            omp_set_lock(&lock);
+            if (!_queue.empty())
+                ret = _queue.top();
+            omp_unset_lock(&lock);
+            return ret;
         }
-        size_t size() const noexcept
+        size_t size() noexcept
         {
-            return _queue.size();
+            size_t ret = 0;
+            omp_set_lock(&lock);
+            ret = _queue.size();
+            omp_unset_lock(&lock);
+            return ret;
         }
-        bool empty() const noexcept
+        bool empty() noexcept
         {
-            return _queue.empty();
+            bool ret = true;
+            omp_set_lock(&lock);
+            ret = _queue.empty();
+            omp_unset_lock(&lock);
+            return ret;
         }
 
     private:
